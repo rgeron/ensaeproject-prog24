@@ -1,6 +1,7 @@
 """
 This is the graph module. It contains a minimalistic Graph class.
 """
+# commentaire test commit
 
 class Graph:
     """
