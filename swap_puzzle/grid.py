@@ -73,10 +73,10 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
 
-    if np.abs(cell1[0]-cell2[0]) + 
+    if np.abs(cell1[0]-cell2[0]) + np.abs(cell1[1]-cell2[1])  <= 1:
         self.state[cell1[0]][cell1[1]], self.state[cell2[0]][cell2[1]]= self.state[cell2[0]][cell2[1]], self.state[cell1[0]][cell1[1]]
 
-    except:
+    else:
         print("the swap is not allowed")
 
 
