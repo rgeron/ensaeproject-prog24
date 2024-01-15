@@ -58,7 +58,7 @@ class Grid():
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
-        if self.state==[list(range(i*self.n+1, (i+1)*self.n+1)) for i in range(self.m)]:
+        if self.state == Grid(self.m,self.n).state:
             return True
         else:
             return False
@@ -73,7 +73,7 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
 
-    try:
+    if np.abs(cell1[0]-cell2[0]) + 
         self.state[cell1[0]][cell1[1]], self.state[cell2[0]][cell2[1]]= self.state[cell2[0]][cell2[1]], self.state[cell1[0]][cell1[1]]
 
     except:
