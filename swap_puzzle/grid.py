@@ -1,7 +1,6 @@
 """
 This is the grid module. It contains the Grid class and its associated methods.
 """
-# test
 import random
 
 class Grid():

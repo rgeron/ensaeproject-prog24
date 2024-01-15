@@ -3,7 +3,7 @@ from grid import Grid
 class Solver(): 
     """
     A solver class, to be implemented.
-    # i will soon implement it
+
     """
     
     def get_solution(self):

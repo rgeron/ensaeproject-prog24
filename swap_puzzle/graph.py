@@ -1,8 +1,6 @@
 """
 This is the graph module. It contains a minimalistic Graph class.
 """
-# commentaire test commit
-
 class Graph:
     """
     A class representing undirected graphs as adjacency lists. 
