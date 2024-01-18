@@ -1,11 +1,17 @@
 """
 This is the grid module. It contains the Grid class and its associated methods.
-"""
-import random
+    """_summary_
 
-class Grid():
+    Raises:
+        Exception: _description_
+
+    Returns:
+        _type_: _description_
     """
-    A class representing the grid from the swap puzzle. It supports rectangular grids. 
+class Grid():
+
+    """
+    A class representing the grid from the swap puzzle. It supports rectangular grids.
 
     Attributes: 
     -----------
@@ -34,17 +40,17 @@ class Grid():
         self.m = m
         self.n = n
 
-        if not initial_state: ## si elle est vide on la créer ordonnnée (car le booléen d'un objet vide est false)
+        if not initial_state: ## si elle est vide on la crée ordonnnée (car le booléen d'un objet vide est false)
             initial_state = [list(range(i*n+1, (i+1)*n+1)) for i in range(m)]  
 
-        self.state = initial_state
+        self.state = initial_state ## on ne peut plus avoir de tableau vide ! 
 
     def __str__(self): 
         """
         Prints the state of the grid as text.
         """
         output = f"The grid is in the following state:\n"
-        for i in range(self.m): 
+        for i in range(self.m): ## pour chaque ligne, on affiche toute la ligne 
             output += f"{self.state[i]}\n"
         return output
 
@@ -58,7 +64,7 @@ class Grid():
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
-        if self.state == Grid(self.m,self.n).state:
+        if self.state == Grid(self.m,self.n).state: ##Grid(self.m,self.n).state renvoie la liste ordonnée car elle est passé par initial_state
             return True
         else:
             return False
@@ -73,11 +79,11 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
 
-    if np.abs(cell1[0]-cell2[0]) + np.abs(cell1[1]-cell2[1])  <= 1:
+        if (np.abs(cell1[0]-cell2[0]) + np.abs(cell1[1]-cell2[1])  <= 1) : ## il faut qu'ils soient au moins sur la même ligne ou la même colonne et à une case d'écart maximum. 
         self.state[cell1[0]][cell1[1]], self.state[cell2[0]][cell2[1]]= self.state[cell2[0]][cell2[1]], self.state[cell1[0]][cell1[1]]
-
-    else:
-        print("the swap is not allowed")
+            Return "The swap has been done"
+        else:
+            Return "the swap is not allowed"
 
 
     def swap_seq(self, cell_pair_list):
@@ -92,6 +98,8 @@ class Grid():
         """
         for i in range(len(cell_pair-list)):
             swap(cell_pair-list[i])
+        
+        return None
 
     @classmethod
     def grid_from_file(cls, file_name): 
