@@ -8,6 +8,10 @@ This is the grid module. It contains the Grid class and its associated methods.
     Returns:
         _type_: _description_
     """
+
+import numpy as np
+import random as rd
+
 class Grid():
 
     """
