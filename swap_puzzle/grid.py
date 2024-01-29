@@ -1,12 +1,5 @@
 """
 This is the grid module. It contains the Grid class and its associated methods.
-    """_summary_
-
-    Raises:
-        Exception: _description_
-
-    Returns:
-        _type_: _description_
     """
 
 import numpy as np

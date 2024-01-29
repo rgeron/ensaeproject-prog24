@@ -3,7 +3,7 @@ from grid import Grid
 g = Grid(2, 3)
 print(g)
 
-data_path = "../input/"
+data_path = "/home/onyxia/ensae-prog24/input/"
 file_name = data_path + "grid0.in"
 
 print(file_name)
