@@ -94,7 +94,7 @@ class Grid():
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
         for i in range(len(cell_pair_list)):
-            swap(cell_pair_list[i])
+            self.swap(cell_pair_list[i]) # il faut mettre self avant les fonctions
         
         return None
 
