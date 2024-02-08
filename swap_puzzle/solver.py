@@ -25,7 +25,7 @@ class Solver():
             # maintenant on a les coordonnées (m_i, n_i) du i-ème chiffre du puzzle 
             # On trouve les coordonnées dans la grille résolue
             n_is= (i-1)//self.n
-            m_is=(i-1)%self.m
+            m_is=(i-1)%self.n
 
             d_ni=np.abs(n_is-n_i) # calcul de la distance entre la colonne d'arrivée et celle de départ
             s_ni=n_is-n_i/np.abs(n_is-n_i) # trouve le sens dans lequel il faut aller 
