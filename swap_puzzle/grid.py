@@ -4,6 +4,8 @@ This is the grid module. It contains the Grid class and its associated methods.
 
 import numpy as np
 import random as rd
+import matplotlib.pyplot as plt
+
 
 class Grid():
 
@@ -125,5 +127,13 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid
+        
+    def rpz(self):
+        plt.matshow(self.state)
+        plt.show()
+        return None 
+        
+        
+    
 
 
