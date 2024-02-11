@@ -79,7 +79,7 @@ class Grid():
         """
 
         if (np.abs(cell1[0]-cell2[0]) + np.abs(cell1[1]-cell2[1])  <= 1) : ## il faut qu'ils soient au moins sur la même ligne ou la même colonne et à une case d'écart maximum. 
-            self.state[cell1[0]][cell1[1]], self.state[cell2[0]][cell2[1]]= self.state[cell2[0]][cell2[1]], self.state[cell1[0]][cell1[1]]
+            (self.state[cell1[0]][cell1[1]], self.state[cell2[0]][cell2[1]]) = (self.state[cell2[0]][cell2[1]], self.state[cell1[0]][cell1[1]])
             return None
         else:
             return "the swap is not allowed"
