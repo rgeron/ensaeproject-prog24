@@ -96,26 +96,7 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        visited = set()
-        queue = deque([(src, [src])])
 
-        while queue:
-            current_node, path = queue.popleft()
-
-            if current_node == dst:
-                return path
-
-            if current_node not in visited:
-                visited.add(current_node)
-
-                for neighbor in self.graph[current_node]:
-                    if neighbor not in visited:
-                        queue.append((neighbor, path + [neighbor]))
-
-        # If destination is not reachable
-        return None
-
-        #BFS de Arthur
         i = 0
         queue = [src]
         liste = [src]
@@ -136,6 +117,8 @@ class Graph:
             queue.pop(0)
         return (solution)
 
+    # If destination is not reachable
+        return None
 
 
     @classmethod
