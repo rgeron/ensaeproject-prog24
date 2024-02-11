@@ -45,3 +45,8 @@ class Solver():
                 Allswap.append([m_i+ s_mi*k, n_is], [m_i+ s_mi*(k+1), n_is ])
 
         return(Allswap)
+
+grid = Grid.grid_from_file("input/grid4.in")
+solver = Solver(grid.m, grid.n, grid.state)
+solver.get_solution()
+
