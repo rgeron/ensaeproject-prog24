@@ -118,14 +118,17 @@ class Graph:
         #BFS de Arthur
         i = 0
         queue = [src]
+        liste = [src]
         paths = [src]
         solution = []
         while i == 0:
             for edges in self.graph[queue[0]]:
-                queue.append(edges)
-                for path in paths:
-                    if queue[0] in path:
-                        paths.append(path.append(edges))
+                if (egdes in liste) == False:
+                    queue.append(edges)
+                    liste.append(edges)
+                    for path in paths:
+                        if queue[0] in path:
+                            paths.append(path.append(edges))
             for path in paths:
                 if dst in path:
                     i = 1
