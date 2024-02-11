@@ -99,6 +99,10 @@ class Grid():
             self.swap(cell_pair_list[i]) # il faut mettre self avant les fonctions
         
         return None
+    def rpz(self):
+        plt.matshow(self.state)
+        plt.show()
+        return None 
 
     @classmethod
     def grid_from_file(cls, file_name): 
@@ -128,10 +132,7 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
         
-    def rpz(self):
-        plt.matshow(self.state)
-        plt.show()
-        return None 
+    
         
         
     
