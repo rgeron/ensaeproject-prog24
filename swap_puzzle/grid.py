@@ -99,11 +99,45 @@ class Grid():
             self.swap(cell_pair_list[i]) # il faut mettre self avant les fonctions
         
         return None
-    def rpz(self):
+
+    def rpz(self): #fonction qui permet de visualiser la grille
         plt.matshow(self.state)
         plt.show()
         return None 
+"""
+Comment répondre à la question 6 ? 
+- On a besoin d'avoir tous les états de la grille de taille m x n. Pour cela, il nous faut toutes les permutations de la liste des entiers de 1 à m*n.
+Objectif : construire une liste avec toutes les permutations (sous forme de liste).
 
+- Ensuite il faut représenter tous ces noeuds. Il faudrait réussir à afficher dans une seule fenêtre tous les états de la grille m x n avec des liens entre chaques grilles. Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
+
+"""
+from itertools import permutations
+
+def toutes_les_permutations(self):
+    liste_principale = list(range(1, self.m*self.n + 1)) # Générer la liste des nombres de 1 à m*n
+    toutes_les_permutations = permutations(liste_principale) # Utiliser la fonction permutations pour générer toutes les permutations
+    result = [list(perm) for perm in toutes_les_permutations] # Convertir les permutations en listes
+    return result
+
+
+def rpz_tout(self):
+    L=toutes_les_permutations()
+
+    total_permutations = math.factorial(self.m * self.n)
+    rows = math.ceil(math.sqrt(total_permutations))
+    cols = math.ceil(total_permutations / rows)
+    fig, axs = plt.subplots(rows, cols, figsize=(n, m))
+
+    for ax in axs.flat:
+        ax.axis('off')
+        
+    for i, perm in enumerate(L):
+        grid = [list(perm[j:j+self.n]) for j in range(0, self.n*self.m, self.n)]
+        ax = axs.flat[i]
+        rpz(ax, grid)
+
+    
     @classmethod
     def grid_from_file(cls, file_name): 
         """
