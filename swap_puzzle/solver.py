@@ -38,11 +38,10 @@ class Solver():
                 self.swap([m_i, n_i+s_ni*k], [m_i, n_i+ s_ni*(k+1)])
                 Allswap.append([m_i, n_i+s_ni*k], [m_i, n_i+ s_ni*(k+1)])
             
-            d_mi=np.abs(m_is-m_i) # calcul de la distance entre la colonne d'arrivée et celle de départ
-            s_mi=m_is-m_i/np.abs(m_is-_mi) # trouve le sens dans lequel il faut aller 
+            d_mi = np.abs(m_is-m_i)  # calcul de la distance entre les lignes
             for k in range(d_mi):
-                self.swap([m_i+ s_mi*k, n_is], [m_i+ s_mi*(k+1), n_is ])
-                Allswap.append([m_i+ s_mi*k, n_is], [m_i+ s_mi*(k+1), n_is ])
+                self.swap([m_i-k, n_is], [m_i-k-1, n_is])
+                Allswap.append([m_i-k, n_is], [m_i-k-1, n_is])
 
         return(Allswap)
 
