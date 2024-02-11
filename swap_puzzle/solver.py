@@ -5,6 +5,11 @@ class Solver():
     A solver class, to be implemented.
     """
     
+    def __init__(self,m,n,initial_state):
+        self.grid = Grid(m,n,initial_state)
+        self.n=n
+        self.m=m
+    
     def get_solution(self):
         """
         Solves the grid and returns the sequence of swaps at the format 
