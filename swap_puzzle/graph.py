@@ -115,6 +115,24 @@ class Graph:
         # If destination is not reachable
         return None
 
+        #BFS de Arthur
+        i = 0
+        queue = [src]
+        paths = [src]
+        solution = []
+        while i == 0:
+            for edges in self.graph[queue[0]]:
+                queue.append(edges)
+                for path in paths:
+                    if queue[0] in path:
+                        paths.append(path.append(edges))
+            for path in paths:
+                if dst in path:
+                    i = 1
+                    solution.append(path)
+            queue.pop(0)
+        return (solution)
+
 
 
     @classmethod
