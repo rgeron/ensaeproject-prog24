@@ -96,7 +96,7 @@ class Grid():
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
         for i in range(len(cell_pair_list)):
-            self.swap(cell_pair_list[i]) # il faut mettre self avant les fonctions
+            self.swap(cell_pair_list[i][0], cell_pair_list[i][1]) # il faut mettre self avant les fonctions
         
         return None
     def rpz(self):
@@ -131,10 +131,3 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid
-        
-    
-        
-        
-    
-
-
