@@ -120,7 +120,24 @@ class Graph:
     # If destination is not reachable
         return None
 
+"""
+Question 7 :
+- Il faut d'abord construire le graphe de tous les états possible de la grille. 
+> Pour cela, il faut créer un dictionaire avec pour chaque clé, un état de la grille, ie une des permutations 
+> pour valeurs, ce sont tous les voisins d'un état de la grille, ie toutes les grilles accessibles par un swap.
 
+> L'algorithme BFS ci-dessus nous donne le chemin le plus court
+"""
+
+
+"""
+Question 8 :
+- Quelle est la partie du graphe nécessaire pour arriver au noeud de destination ? 
+> On ne visite pas une nouvelle grille si le swap qui permet de passer de l'une à l'autre est un swap qui:
+------> un swap qui déplace un nombre sur un ligne qui l'éloigne de sa ligne destination
+------> un swap qui déplace un nombre sur une colonne qui l'éloigne de sa colonne destination
+"""
+    
     @classmethod
     def graph_from_file(cls, file_name):
         """
