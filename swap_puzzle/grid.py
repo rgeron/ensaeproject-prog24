@@ -1,10 +1,8 @@
-"""
-This is the grid module. It contains the Grid class and its associated methods.
-    """
 
 import numpy as np
 import random as rd
 import matplotlib.pyplot as plt
+import math
 
 
 class Grid():
@@ -102,8 +100,7 @@ class Grid():
 
     def rpz(self): #fonction qui permet de visualiser la grille
         plt.matshow(self.state)
-        plt.show()
-        return None 
+        return plt.show() 
 """
 Comment répondre à la question 6 ? 
 - On a besoin d'avoir tous les états de la grille de taille m x n. Pour cela, il nous faut toutes les permutations de la liste des entiers de 1 à m*n.
@@ -127,7 +124,7 @@ def rpz_tout(self):
     total_permutations = math.factorial(self.m * self.n)
     rows = math.ceil(math.sqrt(total_permutations))
     cols = math.ceil(total_permutations / rows)
-    fig, axs = plt.subplots(rows, cols, figsize=(n, m))
+    fig, axs = plt.subplots(rows, cols, figsize=(self.n, self.m))
 
     for ax in axs.flat:
         ax.axis('off')
@@ -135,7 +132,7 @@ def rpz_tout(self):
     for i, perm in enumerate(L):
         grid = [list(perm[j:j+self.n]) for j in range(0, self.n*self.m, self.n)]
         ax = axs.flat[i]
-        rpz(ax, grid)
+        self.rpz(ax, grid)
 
     
     @classmethod
