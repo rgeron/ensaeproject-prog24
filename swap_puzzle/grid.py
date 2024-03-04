@@ -118,17 +118,6 @@ class Grid():
         """
         plt.matshow(self.state)
         return plt.show()
-    
-    def rpzo(self):
-        m = self.m
-        n = self.n
-        fig, ax = plt.subplots(1, 1)
-        ax.set_axis_off()
-        grille = self.state()  
-        column_labels = [j for j in range(1, n+1)] 
-        row_labels = [i for i in range(1, m+1)]  
-        ax.table(cellText=grille, rowLabels=row_labels, colLabels=column_labels, loc="center", cellLoc="center")
-        plt.show()
 
     """
     Comment répondre à la question 6 ?
