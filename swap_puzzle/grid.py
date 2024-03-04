@@ -119,86 +119,86 @@ class Grid():
         return plt.show()
 
 
-"""
-Comment répondre à la question 6 ?
-- On a besoin d'avoir tous les états de la grille de taille m x n.
-Pour cela, il nous faut toutes les permutations
- de la liste des entiers de 1 à m*n.
-Objectif : construire une liste avec toutes
-les permutations (sous forme de liste).
-
-- Ensuite il faut représenter tous ces noeuds.
- Il faudrait réussir à afficher dans une seule fenêtre tous
- les états de la grille m x n avec des liens entre chaques grilles.
- Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
-
-"""
-
-
-def toutes_les_permutations(self):
     """
-    Crée la liste de toutes les permutations.
+    Comment répondre à la question 6 ?
+    - On a besoin d'avoir tous les états de la grille de taille m x n.
+    Pour cela, il nous faut toutes les permutations
+    de la liste des entiers de 1 à m*n.
+    Objectif : construire une liste avec toutes
+    les permutations (sous forme de liste).
+
+    - Ensuite il faut représenter tous ces noeuds.
+    Il faudrait réussir à afficher dans une seule fenêtre tous
+    les états de la grille m x n avec des liens entre chaques grilles.
+    Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
 
     """
-    
-    
-    liste_principale = list(range(1, self.m*self.n + 1))
-    # Générer la liste des nombres de 1 à m*n
-    toutes_les_permutations = permutations(liste_principale)
-    # Utiliser la fonction permutations pour générer toutes les permutations
-    result = [list(perm) for perm in toutes_les_permutations]
-    # Convertir les permutations en listes
-    return result
 
 
-def rpz_tout(self):
-    """
-    Affiche toutes les grilles.
-    """
-    
-    
-    L = toutes_les_permutations()
-
-    total_permutations = math.factorial(self.m * self.n)
-    rows = math.ceil(math.sqrt(total_permutations))
-    cols = math.ceil(total_permutations / rows)
-    fig, axs = plt.subplots(rows, cols, figsize=(self.n, self.m))
-
-    for ax in axs.flat:
-        ax.axis('off')
-
-    for i, perm in enumerate(L):
-        grid = [list(perm[j:j+self.n]) for j in range(0, self.n*self.m,
-                                                      self.n)]
-        ax = axs.flat[i]
-        self.rpz(ax, grid)
-
-    @classmethod
-    def grid_from_file(cls, file_name):
+    def toutes_les_permutations(self):
         """
-        Creates a grid object from class Grid, initialized
-        with the information from the file file_name.
+        Crée la liste de toutes les permutations.
 
-        Parameters:
-        -----------
-        file_name: str
-            Name of the file to load. The file must be of the format:
-            - first line contains "m n"
-            - next m lines contain n integers that
-            represent the state of the corresponding cell
-
-        Output:
-        -------
-        grid: Grid
-            The grid
         """
-        with open(file_name, "r") as file:
-            m, n = map(int, file.readline().split())
-            initial_state = [[] for i_line in range(m)]
-            for i_line in range(m):
-                line_state = list(map(int, file.readline().split()))
-                if len(line_state) != n:
-                    raise Exception("Format incorrect")
-                initial_state[i_line] = line_state
-            grid = Grid(m, n, initial_state)
-        return grid
+        
+        
+        liste_principale = list(range(1, self.m*self.n + 1))
+        # Générer la liste des nombres de 1 à m*n
+        toutes_les_permutations = permutations(liste_principale)
+        # Utiliser la fonction permutations pour générer toutes les permutations
+        result = [list(perm) for perm in toutes_les_permutations]
+        # Convertir les permutations en listes
+        return result
+
+
+    def rpz_tout(self):
+        """
+        Affiche toutes les grilles.
+        """
+        
+        
+        L = toutes_les_permutations()
+
+        total_permutations = math.factorial(self.m * self.n)
+        rows = math.ceil(math.sqrt(total_permutations))
+        cols = math.ceil(total_permutations / rows)
+        fig, axs = plt.subplots(rows, cols, figsize=(self.n, self.m))
+
+        for ax in axs.flat:
+            ax.axis('off')
+
+        for i, perm in enumerate(L):
+            grid = [list(perm[j:j+self.n]) for j in range(0, self.n*self.m,
+                                                        self.n)]
+            ax = axs.flat[i]
+            self.rpz(ax, grid)
+
+        @classmethod
+        def grid_from_file(cls, file_name):
+            """
+            Creates a grid object from class Grid, initialized
+            with the information from the file file_name.
+
+            Parameters:
+            -----------
+            file_name: str
+                Name of the file to load. The file must be of the format:
+                - first line contains "m n"
+                - next m lines contain n integers that
+                represent the state of the corresponding cell
+
+            Output:
+            -------
+            grid: Grid
+                The grid
+            """
+            with open(file_name, "r") as file:
+                m, n = map(int, file.readline().split())
+                initial_state = [[] for i_line in range(m)]
+                for i_line in range(m):
+                    line_state = list(map(int, file.readline().split()))
+                    if len(line_state) != n:
+                        raise Exception("Format incorrect")
+                    initial_state[i_line] = line_state
+                grid = Grid(m, n, initial_state)
+            return grid
