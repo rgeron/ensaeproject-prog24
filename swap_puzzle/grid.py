@@ -163,7 +163,6 @@ class Grid():
         """
         Affiche toutes les grilles.
         """
-
         L = self.toutes_les_permutations()
 
         total_permutations = math.factorial(self.m * self.n)
