@@ -1,4 +1,3 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -44,7 +43,7 @@ class Grid():
             # (car le booléen d'un objet vide est false)
             initial_state = [list(range(i*n+1, (i+1)*n+1)) for i in range(m)]
 
-        self.state = initial_state  # on ne peut plus avoir de tableau vide !
+        self.state = initial_state  # on ne peut plus avoir de tableau vide 
 
     def __str__(self):
         """
@@ -67,8 +66,7 @@ class Grid():
         returns the answer as a boolean.
         """
         if self.state == Grid(self.m, self.n).state:
-            # Grid(self.m,self.n).state
-            # renvoie la liste ordonnée car elle est passé par initial_state
+            # Grid(self.m,self.n).state -> renvoie la liste ordonnée car elle est passé par initial_state
             return True
         else:
             return False
@@ -109,12 +107,14 @@ class Grid():
         """
         for i in range(len(cell_pair_list)):
             self.swap(cell_pair_list[i][0], cell_pair_list[i][1])
-            # il faut mettre self avant les fonctions
 
         return None
 
     def rpz(self):
-        # fonction qui permet de visualiser la grille
+        """
+        Visualisation de la grille.
+
+        """
         plt.matshow(self.state)
         return plt.show()
 
@@ -136,6 +136,12 @@ les permutations (sous forme de liste).
 
 
 def toutes_les_permutations(self):
+    """
+    Crée la liste de toutes les permutations.
+
+    """
+    
+    
     liste_principale = list(range(1, self.m*self.n + 1))
     # Générer la liste des nombres de 1 à m*n
     toutes_les_permutations = permutations(liste_principale)
@@ -146,6 +152,11 @@ def toutes_les_permutations(self):
 
 
 def rpz_tout(self):
+    """
+    Affiche toutes les grilles.
+    """
+    
+    
     L = toutes_les_permutations()
 
     total_permutations = math.factorial(self.m * self.n)
