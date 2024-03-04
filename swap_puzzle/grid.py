@@ -111,13 +111,12 @@ class Grid():
 
         return None
 
-    def rpz(self):
-        """
-        Visualisation de la grille.
-
-        """
-        plt.matshow(self.state)
-        return plt.show()
+    def rpzr(self):
+        fig, ax = plt.subplots(1, 1)
+        data = self.state
+        ax.table(cellText=data, loc="center", cellLoc="center")
+        plt.show()
+        return None
 
     """
     Comment répondre à la question 6 ?
@@ -147,26 +146,6 @@ class Grid():
         result = [list(perm) for perm in toutes_les_permutations]
         # Convertir les permutations en listes
         return result
-
-    def rpz_tout(self):
-        """
-        Affiche toutes les grilles.
-        """
-        L = self.toutes_les_permutations()
-
-        total_permutations = math.factorial(self.m * self.n)
-        rows = math.ceil(math.sqrt(total_permutations))
-        cols = math.ceil(total_permutations / rows)
-        fig, axs = plt.subplots(rows, cols, figsize=(self.n, self.m))
-
-        for ax in axs.flat:
-            ax.axis('off')
-
-        for i, perm in enumerate(L):
-            grid = [list(perm[j:j+self.n]) for j in range(0, self.n*self.m,
-                                                          self.n)]
-            ax = axs.flat[i]
-            self.rpz(ax, grid)
 
         @classmethod
         def grid_from_file(cls, file_name):
