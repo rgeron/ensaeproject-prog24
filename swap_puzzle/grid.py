@@ -141,7 +141,6 @@ class Grid():
 
         """
         
-        
         liste_principale = list(range(1, self.m*self.n + 1))
         # Générer la liste des nombres de 1 à m*n
         toutes_les_permutations = permutations(liste_principale)
@@ -156,8 +155,7 @@ class Grid():
         Affiche toutes les grilles.
         """
         
-        
-        L = toutes_les_permutations()
+        L = self.toutes_les_permutations()
 
         total_permutations = math.factorial(self.m * self.n)
         rows = math.ceil(math.sqrt(total_permutations))

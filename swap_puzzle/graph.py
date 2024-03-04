@@ -142,16 +142,17 @@ class Graph():
     > L'algorithme BFS ci-dessus nous donne le chemin le plus court
     """
 
+    def creer_dico_graph(self,):
+        
+
     """
     Question 8 :
     - Quelle est la partie du graphe nécessaire
     pour arriver au noeud de destination ?
     > On ne visite pas une nouvelle grille
      le swap qui permet de passer de l'une à l'autre est un swap qui:
-    ------> un swap qui déplace un nombre sur
-      une ligne qui l'éloigne de sa ligne destination
-    ------> un swap qui déplace un nombre sur
-    une colonne qui l'éloigne de sa colonne destination
+    ------> déplace un nombre sur une ligne qui l'éloigne de sa ligne destination
+    ------> déplace un nombre sur une colonne qui l'éloigne de sa colonne destination
     """
 
     @classmethod
