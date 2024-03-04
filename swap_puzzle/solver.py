@@ -39,6 +39,7 @@ class Solver():
             # On trouve les coordonnées dans la grille résolue
             m_is = int((i-1)//self.n)
             n_is = int((i-1) % self.n)
+            print(np.array(self.grid.state), "\n")
 
             if (m_is, n_is) != (m_i, n_i):
                 d_ni = np.abs(n_is-n_i)  # calcul de la distance entre

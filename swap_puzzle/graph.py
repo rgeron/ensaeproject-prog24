@@ -4,7 +4,7 @@ This is the graph module. It contains a minimalistic Graph class.
 
 
 class Graph():
-    """
+    """a
     A class representing undirected graphs as adjacency lists.
 
     Attributes:
@@ -86,75 +86,7 @@ class Graph():
         self.graph[node2].append(node1)
         self.nb_edges += 1
         self.edges.append((node1, node2))
-
-    def bfs(self, src, dst):
-        """
-        Finds a shortest path from src to dst by BFS.
-
-        Parameters:
-        -----------
-        src: NodeType
-            The source node.
-        dst: NodeType
-            The destination node.
-
-        Output:
-        -------
-        path: list[NodeType] | None
-            The shortest path from src to dst.
-            Returns None if dst is not reachable from src
-        """
-
-        i = 0
-        queue = [src]
-        liste = [src]
-        paths = [src]
-        solution = []
-        while i == 0:
-            for edges in self.graph[queue[0]]:
-                if (edges in liste) is False:
-                    queue.append(edges)
-                    liste.append(edges)
-                    for path in paths:
-                        if queue[0] in path:
-                            paths.append(path.append(edges))
-            for path in paths:
-                if dst in path:
-                    i = 1
-                    solution.append(path)
-            queue.pop(0)
-        return (solution)
-
-    # If destination is not reachable
-        return None
-
-    """
-    Question 7 :
-    - Il faut d'abord construire le graphe de tous
-    les états possible de la grille.
-    > Pour cela, il faut créer un dictionaire
-    avec pour chaque clé, un état de la grille,
-     ie une des permutations
-    > pour valeurs, ce sont tous les voisins
-    d'un état de la grille, ie toutes
-    les grilles accessibles par un swap.
-
-    > L'algorithme BFS ci-dessus nous donne le chemin le plus court
-    """
-
-    def creer_dico_graph(self,):
         
-
-    """
-    Question 8 :
-    - Quelle est la partie du graphe nécessaire
-    pour arriver au noeud de destination ?
-    > On ne visite pas une nouvelle grille
-     le swap qui permet de passer de l'une à l'autre est un swap qui:
-    ------> déplace un nombre sur une ligne qui l'éloigne de sa ligne destination
-    ------> déplace un nombre sur une colonne qui l'éloigne de sa colonne destination
-    """
-
     @classmethod
     def graph_from_file(cls, file_name):
         """
@@ -188,3 +120,50 @@ class Graph():
                     raise Exception("Format incorrect")
 
         return (graph)
+    """
+    Question 7 :
+    - Il faut d'abord construire le graphe de tous
+    les états possible de la grille.
+    > Pour cela, il faut créer un dictionaire
+    avec pour chaque clé, un état de la grille,
+     ie une des permutations
+    > pour valeurs, ce sont tous les voisins
+    d'un état de la grille, ie toutes
+    les grilles accessibles par un swap.
+
+    > L'algorithme BFS ci-dessus nous donne le chemin le plus court
+    """
+
+    # # def creer_dico_graph(self):
+    #     """
+    #     Question 8 :
+    #     - Quelle est la partie du graphe nécessaire
+    #     pour arriver au noeud de destination ?
+    #     > On ne visite pas une nouvelle grille
+    #     le swap qui permet de passer de l'une à l'autre est un swap qui:
+    #     ------> déplace un nombre sur une ligne qui l'éloigne de sa ligne destination
+    #     ------> déplace un nombre sur une colonne qui l'éloigne de sa colonne destination
+    #     """
+
+    def bfs(self, src, dst):
+        i = 0
+        queue = [src]
+        liste = [src]
+        paths = [[src]]
+        solution = []
+        while i == 0:
+            for node in self.graph[queue[0]]:
+                if (node not in liste):
+                    queue.append(node)
+                    liste.append(node)
+                    for path in paths:
+                        if queue[0] in path:
+                            paths.append(path.append(node))
+            # for path in paths:
+            #     if dst in path:
+            #         i = 1
+            #         solution.append(path)
+            # queue.pop(0)
+            i = 1
+        return solution
+

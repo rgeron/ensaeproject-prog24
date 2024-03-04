@@ -132,6 +132,12 @@ class Grid():
     Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
 
     """
+    def tous_les_etats(self):
+        
+
+
+
+
     def toutes_les_permutations(self):
         """
         Crée la liste de toutes les permutations.
