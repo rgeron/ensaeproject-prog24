@@ -118,6 +118,41 @@ class Grid():
         plt.show()
         return None
 
+    def all_states(self):  # Créer tous les états possibles
+        # Crée la liste (1, 2, ..., n*m)
+        numbers = range(1, self.n * self.m + 1)
+
+        # Génére toutes les permutations de la liste
+        all_permutations = permutations(numbers)
+
+        # Génére tous les états
+
+        # On fait une distinction lorsqu'il y a une seule ligne afin de
+        # ne pas avoir une matrice avec un élément qui est la ligne
+        if self.n == 1:
+            all_states = []
+            for permutation in all_permutations:
+                all_states.append(list(permutation))
+
+        else:
+            all_states = []  # variable stockant tous les états
+            for permutation in all_permutations:  # parcours des permutations
+                state = []  # variable où l'on va construire un état
+                ligne = []  # variable où l'on va construire les lignes
+                for i in permutation:  # parcour la permutaion
+                    if len(ligne) == self.m:
+                        # si on a la ligne de la bonne taille
+                        state.append(ligne)  # on l'ajoute à l'état
+                        ligne = []  # on la vide
+                        ligne.append(i)  # et on ajoute l'élément
+                    else:  # sinon on ne fait qu'ajouter l'élément
+                        ligne.append(i)
+                state.append(ligne)  # comme le dernier élément complète
+                # la dernière ligne il faut l'ajouter
+                all_states.append(state)  # on ajoute l'état à tous les états
+
+        return all_states
+
     """
     Comment répondre à la question 6 ?
     - On a besoin d'avoir tous les états de la grille de taille m x n.
@@ -132,11 +167,6 @@ class Grid():
     Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
 
     """
-    def tous_les_etats(self):
-        
-
-
-
 
     def toutes_les_permutations(self):
         """

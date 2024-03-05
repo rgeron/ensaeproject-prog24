@@ -86,7 +86,7 @@ class Graph():
         self.graph[node2].append(node1)
         self.nb_edges += 1
         self.edges.append((node1, node2))
-        
+
     @classmethod
     def graph_from_file(cls, file_name):
         """
@@ -141,8 +141,8 @@ class Graph():
     #     pour arriver au noeud de destination ?
     #     > On ne visite pas une nouvelle grille
     #     le swap qui permet de passer de l'une à l'autre est un swap qui:
-    #     ------> déplace un nombre sur une ligne qui l'éloigne de sa ligne destination
-    #     ------> déplace un nombre sur une colonne qui l'éloigne de sa colonne destination
+    #     -> déplace un nombre sur une ligne qui l'éloigne de sa ligne dst
+    #     -> déplace un nombre sur une colonne qui l'éloigne de sa colonne dst
     #     """
 
     def bfs(self, src, dst):
@@ -166,4 +166,3 @@ class Graph():
             # queue.pop(0)
             i = 1
         return solution
-
