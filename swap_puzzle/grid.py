@@ -152,27 +152,27 @@ class Grid():
                 all_states.append(state)  # on ajoute l'état à tous les états
 
         return all_states
-    
-    def all_swaps(self): # donne tous les swaps possibles sur une grille 
-        ''' L'idée est de parcourir tous les indices de la grille, en regardant 
-        pour chacune des lignes chacune des colones. Sur chaque élément on ne regarde 
-        au maximun que 2 swaps, celui à droite et celui en bas, comme ça on est sûr de ne pas 
-        recouper les swaps.'''
+
+    def all_swaps(self):  # donne tous les swaps possibles sur une grille
+        ''' L'idée est de parcourir tous les indices de la grille, en regardant
+        pour chacune des lignes chacune des colones. Sur chaque élément
+        on ne regarde au maximun que 2 swaps, celui à droite et celui en bas,
+        comme ça on est sûr de ne pas recouper les swaps.'''
         indices_de_ligne = range(0, self.n)
         indices_de_colonne = range(0, self.m)
         all_swaps = []
+        # avec les deux permiers for on parcours tous les indices
         for indice_1 in indices_de_ligne:
-            for indice_2 in indices_de_colonne: # avec les deux permiers for on parcours tous les indices
-                position_1 = [indice_1, indice_2] 
-                if indice_1 < self.n - 1: # on ne swap vers le bas que si on est pas collé en bas
+            for indice_2 in indices_de_colonne:
+                position_1 = [indice_1, indice_2]
+                # on ne swap vers le bas que si on est pas collé en bas
+                if indice_1 < self.n - 1:
                     position_2 = [indice_1 + 1, indice_2]
                     all_swaps.append([position_1, position_2])
-                if indice_2 < self.m - 1: # de même que pour le bas mais à droite 
-                    position_2 = [indice_1, indice_2 +1]
+                if indice_2 < self.m - 1:  # de mêmeà droite
+                    position_2 = [indice_1, indice_2 + 1]
                     all_swaps.append([position_1, position_2])
         return all_swaps
-
-
 
     """
     Comment répondre à la question 6 ?
