@@ -66,8 +66,7 @@ class Grid():
         returns the answer as a boolean.
         """
         if self.state == Grid(self.m, self.n).state:
-            # Grid(self.m,self.n).state -> renvoie la
-            # liste ordonnée car elle est passé par initial_state
+            # Grid(self.m,self.n).state -> renvoie la liste ordonnée car elle est passé par initial_state
             return True
         else:
             return False
@@ -92,7 +91,7 @@ class Grid():
                                                 self.state[cell1[0]][cell1[1]])
             return None
         else:
-            return "the swap is not allowed"
+            raise ValueError("The swap is not allowed")
 
     def swap_seq(self, cell_pair_list):
         """
@@ -139,16 +138,15 @@ class Grid():
             for permutation in all_permutations:  # parcours des permutations
                 state = []  # variable où l'on va construire un état
                 ligne = []  # variable où l'on va construire les lignes
-                for i in permutation:  # parcour la permutaion
-                    if len(ligne) == self.m:
+                for i in permutation:  # parcourt la permutaion (qui est une ligne)
+                    if len(ligne) == self.n: #n est le nombre de colonne et donc la dimension d'une ligne
                         # si on a la ligne de la bonne taille
                         state.append(ligne)  # on l'ajoute à l'état
                         ligne = []  # on la vide
                         ligne.append(i)  # et on ajoute l'élément
                     else:  # sinon on ne fait qu'ajouter l'élément
                         ligne.append(i)
-                state.append(ligne)  # comme le dernier élément complète
-                # la dernière ligne il faut l'ajouter
+                state.append(ligne)  # comme le dernier élément complète la dernière ligne, il faut l'ajouter
                 all_states.append(state)  # on ajoute l'état à tous les états
 
         return all_states
@@ -174,35 +172,6 @@ class Grid():
                     all_swaps.append([position_1, position_2])
         return all_swaps
 
-    """
-    Comment répondre à la question 6 ?
-    - On a besoin d'avoir tous les états de la grille de taille m x n.
-    Pour cela, il nous faut toutes les permutations
-    de la liste des entiers de 1 à m*n.
-    Objectif : construire une liste avec toutes
-    les permutations (sous forme de liste).
-
-    - Ensuite il faut représenter tous ces noeuds.
-    Il faudrait réussir à afficher dans une seule fenêtre tous
-    les états de la grille m x n avec des liens entre chaques grilles.
-    Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
-
-    """
-
-    def toutes_les_permutations(self):
-        """
-        Crée la liste de toutes les permutations.
-
-        """
-
-        liste_principale = list(range(1, self.m*self.n + 1))
-        # Générer la liste des nombres de 1 à m*n
-        toutes_les_permutations = permutations(liste_principale)
-        # Utiliser la fonction permutations pour
-        # générer toutes les permutations
-        result = [list(perm) for perm in toutes_les_permutations]
-        # Convertir les permutations en listes
-        return result
 
         @classmethod
         def grid_from_file(cls, file_name):
