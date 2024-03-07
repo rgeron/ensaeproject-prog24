@@ -132,7 +132,7 @@ class Grid():
         if self.n == 1:
             all_states = []
             for permutation in all_permutations:
-                all_states.append(list(permutation))
+                all_states.append(tuple(permutation))
 
         else:
             all_states = []  # variable stockant tous les états
@@ -142,16 +142,16 @@ class Grid():
                 for i in permutation:  # parcour la permutaion
                     if len(ligne) == self.m:
                         # si on a la ligne de la bonne taille
-                        state.append(ligne)  # on l'ajoute à l'état
+                        state.append(tuple(ligne))  # on l'ajoute à l'état
                         ligne = []  # on la vide
                         ligne.append(i)  # et on ajoute l'élément
                     else:  # sinon on ne fait qu'ajouter l'élément
                         ligne.append(i)
-                state.append(ligne)  # comme le dernier élément complète
+                state.append(tuple(ligne))  # comme le dernier élément complète
                 # la dernière ligne il faut l'ajouter
-                all_states.append(state)  # on ajoute l'état à tous les états
+                all_states.append(tuple(state))  # on ajoute l'état à tous
 
-        return all_states
+        return tuple(all_states)
 
     def all_swaps(self):  # donne tous les swaps possibles sur une grille
         ''' L'idée est de parcourir tous les indices de la grille, en regardant
@@ -165,14 +165,32 @@ class Grid():
         for indice_1 in indices_de_ligne:
             for indice_2 in indices_de_colonne:
                 position_1 = [indice_1, indice_2]
-                # on ne swap vers le bas que si on est pas collé en bas
+                # on ne swap vers le bas que si on n'est pas collé en bas
                 if indice_1 < self.n - 1:
                     position_2 = [indice_1 + 1, indice_2]
                     all_swaps.append([position_1, position_2])
-                if indice_2 < self.m - 1:  # de mêmeà droite
+                if indice_2 < self.m - 1:  # de même à droite
                     position_2 = [indice_1, indice_2 + 1]
                     all_swaps.append([position_1, position_2])
-        return all_swaps
+        return tuple(all_swaps)
+
+    def all_neighbours(self):  # Donne toutes les grilles voisines
+        ''' L'idée ici est de prendre l'ensemble des swaps possibles pour la
+        taille de la grille, swap vers un voisin, l'ajouter à une liste,
+        revenir à l'état précédent et ensuite swap vers un autre voisin,
+        ainsi de suite. '''
+        all_neighbour = []
+        for swap in self.all_swaps():
+            self.swap(swap[0], swap[1])
+            voisin = []
+            # On est obligé du tupler les lignes de la grille afin qu'ils
+            # soient immuables
+            for lignes in self.state:
+                voisin.append(tuple(lignes))
+            voisin = tuple(voisin)
+            all_neighbour.append(voisin)
+            self.swap(swap[0], swap[1])
+        return tuple(all_neighbour)
 
     """
     Comment répondre à la question 6 ?

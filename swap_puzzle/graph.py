@@ -1,6 +1,9 @@
 """
 This is the graph module. It contains a minimalistic Graph class.
 """
+from grid import Grid
+import sys
+sys.path.insert(1, "/Users/arthurbidel/Documents/ENSAE/Informatique/S2/ensae-prog24-1/swap_puzzle")
 
 
 class Graph():
@@ -24,7 +27,7 @@ class Graph():
         The list of all edges
     """
 
-    def __init__(self, nodes=[]):
+    def __init__(self, n, m):
         """
         Initializes the graph with a set of nodes, and no edges.
 
@@ -33,11 +36,14 @@ class Graph():
         nodes: list, optional
             A list of nodes. Default is empty.
         """
+        nodes = Grid(n, m).all_states()
         self.nodes = nodes
-        self.graph = dict([(n, []) for n in nodes])
+        self.graph = dict([(i, []) for i in nodes])
         self.nb_nodes = len(nodes)
         self.nb_edges = 0
         self.edges = []
+        self.n = n
+        self.m = m
 
     def __str__(self):
         """
@@ -81,11 +87,34 @@ class Graph():
             self.graph[node2] = []
             self.nb_nodes += 1
             self.nodes.append(node2)
+        if node2 not in  self.graph[node1]:
+            self.graph[node1].append(node2)
+            self.graph[node2].append(node1)
+            self.nb_edges += 1
+            self.edges.append((node1, node2))
 
-        self.graph[node1].append(node2)
-        self.graph[node2].append(node1)
-        self.nb_edges += 1
-        self.edges.append((node1, node2))
+    def add_neighbours(self):
+        ''' On va créer les edges de notre graph, qui n'est défini que par la taille des grilles. On parcours tous les états, soit tous les nœuds et on ajoute les voisins dans les edges, il y a plusieurs boucles for qui ne servent qu'a alterner entre tuple et liste afin d'avoir le bon format pour les bonnes méthodes. '''
+        for tuples in Grid(self.n, self.m).all_states():
+            # passage de la grille en liste pour la méthode all_neighbours
+            grille = list(tuples)
+            for i in range(self.n):
+                grille[i] = list(grille[i])
+
+            grille1 = Grid(self.n, self.m, grille)
+
+            node1 = grille1.state
+            for vosin in grille1.all_neighbours():
+                node2 = vosin 
+                # passage en tuple pour add_edge
+                for i in range(self.n):
+                    node1[i] = tuple(node1[i])
+
+                self.add_edge(tuple(node1), tuple(node2))
+                # repassage en liste pour la boucle 
+                for i in range(self.n):
+                    node1[i] = list(node1[i])
+        return None
 
     @classmethod
     def graph_from_file(cls, file_name):
@@ -159,10 +188,10 @@ class Graph():
                     for path in paths:
                         if queue[0] in path:
                             paths.append(path.append(node))
-            # for path in paths:
-            #     if dst in path:
-            #         i = 1
-            #         solution.append(path)
-            # queue.pop(0)
+            for path in paths:
+                if dst in path:
+                    i = 1
+                    solution.append(path)
+            queue.pop(0)
             i = 1
         return solution

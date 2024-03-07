@@ -1,7 +1,7 @@
 import numpy as np
 from grid import Grid
 import sys
-sys.path.insert(1, "/Users/arthurbidel/ensae-prog24/swap_puzzle")
+sys.path.insert(1, "/Users/arthurbidel/Documents/ENSAE/Informatique/S2/ensae-prog24-1/swap_puzzle")
 
 
 class Solver():
