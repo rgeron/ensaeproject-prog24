@@ -204,7 +204,7 @@ class Graph():
 
     def add_neighbours_with_bfs(self):
         '''Cette fonction a pour but de construire le graph
-        en en regardant que la partie nécessaire à la résolution via BFS.
+        en ne regardant que la partie nécessaire à la résolution via BFS.
         Pour cela on part de la destination et on utilise un code
         similaire à bfs1, lorsque le chemin est trouvé on construit notre
         graph en ajoutant le minimun des points parcours par le bfs
