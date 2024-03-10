@@ -4,6 +4,8 @@ This is the graph module. It contains a minimalistic Graph class.
 from grid import Grid
 import sys
 sys.path.insert(1, "/Users/arthurbidel/Documents/ENSAE/Informatique/S2/ensae-prog24-1/swap_puzzle")
+import numpy as np 
+import heapq
 
 # fonction supplémentaire:
 
@@ -204,7 +206,7 @@ class Graph():
             paths.extend(new_paths)
             # Ajoute les nouveaux chemins à la liste des
             # chemins pour l'exploration suivante
-
+            
         return []  # Retourne une liste vide si aucun chemin n'est trouvé
 
     def add_neighbours_with_bfs(self):
@@ -242,6 +244,40 @@ class Graph():
                     current_size -= 1
             paths.extend(new_paths)
         return None
+    #Astar en  préparation 
+    # def distance(self, node1, node2):
+    #     distance = 0 
+    #     for i in range(1, self.m * self.n + 1):
+    #         j1 = 0
+    #         j2 = 0
+    #         m_i1 = 0
+    #         m_i2 = 0
+    #         while j1*j2 == 0:
+    #             while j1 == 0: 
+    #                 for n_j1 in range(self.n): 
+    #                     if node1[m_i1][n_j1] == i:
+    #                         n_i1 = n_j1
+    #                         m_i1 += -1
+    #                         j = 1
+    #             m_i1 += 1
+    #             for n_j2 in range(self.n):
+    #                 if node2[m_i2][n_j2] == i:
+    #                     n_i2 = n_j2
+    #                     m_i2 += -1
+    #                     j = 1
+    #             m_i2 += 1
+    #         distance += np.abs(m_i1 - m_i2) + np.abs(n_i1 - n_i2)
+    #     return (distance)
+
+    # def add_neighbours_with_Astar(self):
+    #     closed_list = [tuples(Grid(self.n, self.m).state), ]
+
+    #     open_list = []
+
+    #     while open_list:
+
+
+
 
     @classmethod
     def graph_from_file(cls, file_name):
@@ -276,3 +312,18 @@ class Graph():
                     raise Exception("Format incorrect")
 
         return (graph)
+    
+a = ( 0, [1,2] )
+b = ( 1, [0,1] )
+c = ( 2, [3,2])
+d = ( 0, [3,2])
+tas = []
+heapq.heappush(tas, a)
+heapq.heappush(tas, b)
+heapq.heappush(tas, c)
+heapq.heappush(tas, d)
+print(tas)
+print(heapq.heappop(tas))
+print(heapq.heappop(tas))
+print(heapq.heappop(tas))
+print(heapq.heappop(tas))

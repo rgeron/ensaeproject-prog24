@@ -191,37 +191,7 @@ class Grid():
             all_neighbour.append(voisin)
             self.swap(swap[0], swap[1])
         return tuple(all_neighbour)
-
-    """
-    Comment répondre à la question 6 ?
-    - On a besoin d'avoir tous les états de la grille de taille m x n.
-    Pour cela, il nous faut toutes les permutations
-    de la liste des entiers de 1 à m*n.
-    Objectif : construire une liste avec toutes
-    les permutations (sous forme de liste).
-
-    - Ensuite il faut représenter tous ces noeuds.
-    Il faudrait réussir à afficher dans une seule fenêtre tous
-    les états de la grille m x n avec des liens entre chaques grilles.
-    Pour cela on utilise la fonction rpz (m*n)! fois (ça fait beaucoup).
-
-    """
-
-    def toutes_les_permutations(self):
-        """
-        Crée la liste de toutes les permutations.
-
-        """
-
-        liste_principale = list(range(1, self.m*self.n + 1))
-        # Générer la liste des nombres de 1 à m*n
-        toutes_les_permutations = permutations(liste_principale)
-        # Utiliser la fonction permutations pour
-        # générer toutes les permutations
-        result = [list(perm) for perm in toutes_les_permutations]
-        # Convertir les permutations en listes
-        return result
-
+    
         @classmethod
         def grid_from_file(cls, file_name):
             """
