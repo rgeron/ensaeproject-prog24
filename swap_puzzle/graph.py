@@ -244,40 +244,62 @@ class Graph():
                     current_size -= 1
             paths.extend(new_paths)
         return None
-    #Astar en  préparation 
-    # def distance(self, node1, node2):
-    #     distance = 0 
-    #     for i in range(1, self.m * self.n + 1):
-    #         j1 = 0
-    #         j2 = 0
-    #         m_i1 = 0
-    #         m_i2 = 0
-    #         while j1*j2 == 0:
-    #             while j1 == 0: 
-    #                 for n_j1 in range(self.n): 
-    #                     if node1[m_i1][n_j1] == i:
-    #                         n_i1 = n_j1
-    #                         m_i1 += -1
-    #                         j = 1
-    #             m_i1 += 1
-    #             for n_j2 in range(self.n):
-    #                 if node2[m_i2][n_j2] == i:
-    #                     n_i2 = n_j2
-    #                     m_i2 += -1
-    #                     j = 1
-    #             m_i2 += 1
-    #         distance += np.abs(m_i1 - m_i2) + np.abs(n_i1 - n_i2)
-    #     return (distance)
 
-    # def add_neighbours_with_Astar(self):
-    #     closed_list = [tuples(Grid(self.n, self.m).state), ]
+    def distance(self, node1, node2):
+        '''On calcule une distance entre deux grilles comme la
+        somme des distances entre chacune des valeurs '''
+        distance = 0
+        for i in range(1, self.m * self.n + 1):
+            j1 = 0
+            j2 = 0
+            m_i1 = 0
+            m_i2 = 0
+            while j1*j2 == 0:
+                while j1 == 0: 
+                    for n_j1 in range(self.n): 
+                        if node1[m_i1][n_j1] == i:
+                            n_i1 = n_j1
+                            m_i1 += -1
+                            j1 = 1
+                    m_i1 += 1
+                while j2 == 0: 
+                    for n_j2 in range(self.n):
+                        if node2[m_i2][n_j2] == i:
+                            n_i2 = n_j2
+                            m_i2 += -1
+                            j2 = 1
+                    m_i2 += 1
+            distance += np.abs(m_i1 - m_i2) + np.abs(n_i1 - n_i2)
+        return (distance)
 
-    #     open_list = []
+    def add_neighbours_with_Astar(self):
+        '''Codage de Astar '''
+        closed_list = [tuples(self.n, Grid(self.n, self.m).state)] # liste contenant tous les points vistés
+        dico_with_parent = dict({tuples(self.n, Grid(self.n, self.m).state) : 0}) # dico qui associe à chaque point visité le voisin qui a amené à le visiter afin de retracer les chemin 
+        open_list = [(self.distance(tuples(self.n, Grid(self.n, self.m).state), self.initial_grid), tuples(self.n, Grid(self.n, self.m).state))] # queue
+        # On cheche tant que la queuqe n'est pas vide, elle ne sert que d'indicatrice ici
+        # Le code est similaire à celui du BFS sauf qu'avec heapq.heappop on visite d'abord le point ayant la distance la plus faible 
+        while open_list:
+            current_node = heapq.heappop(open_list)
+            if current_node[1] == self.initial_grid:
+                open_list = []
 
-    #     while open_list:
+            else:   
+                for neighbours in Grid(self.n, self.m, lists(self.n, current_node[1])).all_neighbours():
+                    if neighbours not in closed_list:
+                        self.add_edge(current_node[1], neighbours)
+                        closed_list.append(neighbours)
+                        dico_with_parent[neighbours] = current_node[1]
+                        node_for_open_list = (self.distance(neighbours, self.initial_grid), neighbours)
+                        open_list.append(node_for_open_list)
+        # Ce petit code permet de retracer le chemin grâce au dictionnaire des parents 
+        path = [current_node[1]]
+        parent = dico_with_parent[current_node[1]]
+        while parent != 0:
+            path.append(parent)
+            parent = dico_with_parent[parent]
 
-
-
+        return (path)
 
     @classmethod
     def graph_from_file(cls, file_name):
@@ -312,18 +334,3 @@ class Graph():
                     raise Exception("Format incorrect")
 
         return (graph)
-    
-a = ( 0, [1,2] )
-b = ( 1, [0,1] )
-c = ( 2, [3,2])
-d = ( 0, [3,2])
-tas = []
-heapq.heappush(tas, a)
-heapq.heappush(tas, b)
-heapq.heappush(tas, c)
-heapq.heappush(tas, d)
-print(tas)
-print(heapq.heappop(tas))
-print(heapq.heappop(tas))
-print(heapq.heappop(tas))
-print(heapq.heappop(tas))
