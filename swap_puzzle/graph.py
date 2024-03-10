@@ -32,14 +32,16 @@ def make_hashable(item):
 # fonctions pour passer de liste à tuple et inversement
 def tuples(n, grid):
     for i in range(n):
-        grid[i] = tuple(grid[i])
+        if type(grid[i]) != tuple:
+            grid[i] = tuple(grid[i])
     return (tuple(grid))
 
 
 def lists(n, grid):
     grid = list(grid)
     for i in range(n):
-        grid[i] = list(grid[i])
+        if type(grid[i]) != list:
+            grid[i] = list(grid[i])
     return (grid)
 
 
@@ -77,10 +79,9 @@ class Graph():
         self.m = m
         if not initial_grid:
             initial_grid = [list(range(i*n+1, (i+1)*n+1)) for i in range(m)]
-        nodes = Grid(n, m).all_states()
-        self.nodes = nodes
-        self.graph = dict([(i, []) for i in nodes])
-        self.nb_nodes = len(nodes)
+        self.nodes = [tuples(self.n, initial_grid)]
+        self.nb_nodes = len(self.nodes)
+        self.graph = dict([(i, []) for i in tuples(self.nb_nodes, self.nodes)])
         self.nb_edges = 0
         self.edges = []
         self.initial_grid = initial_grid
@@ -141,6 +142,10 @@ class Graph():
         il y a plusieurs boucles for qui ne servent qu'a alterner
         entre tuple et liste afin d'avoir le bon format pour
         les bonnes méthodes. '''
+        nodes = Grid(self.n, self.m).all_states()
+        self.nodes = nodes
+        self.graph = dict([(i, []) for i in tuples(len(self.nodes), self.nodes)])
+        self.nb_nodes = len(nodes)
         for tuples1 in Grid(self.n, self.m).all_states():
             # passage de la grille en liste pour la méthode all_neighbours
             grille = lists(self.n, tuples1)
@@ -229,53 +234,14 @@ class Graph():
                 else:
                     for neighbor in Grid(self.n, self.m,
                                          current_node).all_neighbours():
+                        self.add_edge(tuples(self.n, current_node), tuples(self.n, neighbor))
                         if neighbor not in visited:
                             visited.add(neighbor)
                             queue.append(neighbor)
                             new_paths.append(current_path + [neighbor])
                     current_size -= 1
             paths.extend(new_paths)
-
-        self.nodes = path_found
-        print(path_found)
-        self.graph = dict([(i, []) for i in tuples(len(path_found),
-                                                   path_found)])
-        self.nb_nodes = len(path_found)
-        self.nb_edges = 0
-        self.edges = []
-
-        for nodes in tuples(len(path_found), path_found):
-            if nodes != tuples(self.n, self.initial_grid):
-                for neighbours in Grid(self.n,
-                                       self.m, lists(self.n,
-                                                     nodes)).all_neighbours():
-                    self.add_edge(nodes, neighbours)
         return None
-
-    """
-    Question 7 :
-    - Il faut d'abord construire le graphe de tous
-    les états possible de la grille.
-    > Pour cela, il faut créer un dictionaire
-    avec pour chaque clé, un état de la grille,
-     ie une des permutations
-    > pour valeurs, ce sont tous les voisins
-    d'un état de la grille, ie toutes
-    les grilles accessibles par un swap.
-
-    > L'algorithme BFS ci-dessus nous donne le chemin le plus court
-    """
-
-    # # def creer_dico_graph(self):
-    #     """
-    #     Question 8 :
-    #     - Quelle est la partie du graphe nécessaire
-    #     pour arriver au noeud de destination ?
-    #     > On ne visite pas une nouvelle grille
-    #     le swap qui permet de passer de l'une à l'autre est un swap qui:
-    #     -> déplace un nombre sur une ligne qui l'éloigne de sa ligne dst
-    #     -> déplace un nombre sur une colonne qui l'éloigne de sa colonne dst
-    #     """
 
     @classmethod
     def graph_from_file(cls, file_name):
@@ -310,49 +276,3 @@ class Graph():
                     raise Exception("Format incorrect")
 
         return (graph)
-    """
-    Question 7 :
-    - Il faut d'abord construire le graphe de tous
-    les états possible de la grille.
-    > Pour cela, il faut créer un dictionaire
-    avec pour chaque clé, un état de la grille,
-     ie une des permutations
-    > pour valeurs, ce sont tous les voisins
-    d'un état de la grille, ie toutes
-    les grilles accessibles par un swap.
-
-    > L'algorithme BFS ci-dessus nous donne le chemin le plus court
-    """
-
-    # # def creer_dico_graph(self):
-    #     """
-    #     Question 8 :
-    #     - Quelle est la partie du graphe nécessaire
-    #     pour arriver au noeud de destination ?
-    #     > On ne visite pas une nouvelle grille
-    #     le swap qui permet de passer de l'une à l'autre est un swap qui:
-    #     -> déplace un nombre sur une ligne qui l'éloigne de sa ligne dst
-    #     -> déplace un nombre sur une colonne qui l'éloigne de sa colonne dst
-    #     """
-
-    def bfs2(self, src, dst):
-        i = 0
-        queue = [src]
-        liste = [src]
-        paths = [[src]]
-        solution = []
-        while i == 0:
-            for node in self.graph[queue[0]]:
-                if (node not in liste):
-                    queue.append(node)
-                    liste.append(node)
-                    for path in paths:
-                        if queue[0] in path:
-                            paths.append(path.append(node))
-            for path in paths:
-                if dst in path:
-                    i = 1
-                    solution.append(path)
-            queue.pop(0)
-            i = 1
-        return solution
